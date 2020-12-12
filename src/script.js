@@ -1,19 +1,11 @@
-const salary=document.querySelector('#salary');
-        const output=document.querySelector('.salary-output');
-        salary.addEventListener('input',function(){
-            output.textContent=salary.value;
-        });
 class EmployeePayrollData {
 
-    constructor(...params) {
-        this.name = params[0];
-        this.picture = params[1];
-        this.gender = params[2];
-        this.department = params[3];
-        this.salary = params[4];
-        this.startDate = params[5];
-        this.notes = params[6];
-    }
+    get id() {
+	return this._id;
+	}
+    set id(id) {
+	this._id=id;
+	}
 
     get name() {
         return this._name;
@@ -22,7 +14,7 @@ class EmployeePayrollData {
         let nameRegex=RegExp('^[A-Z]{1}[a-zA-Z]{2,}$');
 	if(nameRegex.test(name))
 	this._name=name;
-	else throw ' Name is Incorrect ';
+	else throw 'Name is Incorrect';
     }
 
     get profilePic() {
@@ -50,7 +42,7 @@ class EmployeePayrollData {
         return this._salary;
     }
     set salary(salary) {
-        this._salary = salary;
+	this._salary=salary;
     }
 
     get note() {
@@ -64,12 +56,14 @@ class EmployeePayrollData {
         return this._startDate;
     }
     set startDate(startDate) {
-        if(startDate.getMonth() <= (new Date()).getMonth()  && startDate.getDay() <= (new Date()).getDay() && startDate.getFullYear() <= (new Date()).getFullYear())
+	if(startDate.getMonth() <= (new Date()).getMonth()  && startDate.getDay() <= (new Date()).getDay() && startDate.getFullYear() <= (new Date()).getFullYear())
             this._startDate = startDate;
         else{ 
             throw "Invalid Start date ";
         }
     }
+  
+    //method
 
     toString() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -80,14 +74,4 @@ class EmployeePayrollData {
     }
 }
 
-document.getElementById("submit").onclick = function() {
-    let employee = new EmployeePayroll();
-    employee.name = document.getElementById("name").value;
-    employee.profilePic = document.querySelector('input[name = profile]:checked').value;
-    employee.gender = document.querySelector('input[name = gender]:checked').value;
-    employee.department = document.querySelector('input[name = department]:checked').value;
-    employee.salary = document.getElementById("salary").value;
-    employee.note = document.getElementById("note").value;
-    employee.startDate = new Date(parseInt(document.getElementById("year").value), parseInt(document.getElementById("month").value), parseInt(document.getElementById("day").value));
-};
 
