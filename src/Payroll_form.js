@@ -20,7 +20,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
         output.textContent=salary.value;
     });
 });
-  const date = document.querySelector('#date');
+
+const date = document.querySelector('#date');
     const dateError = document.querySelector(".date-error");
     date.addEventListener('input',function(){
         let startDate =  document.querySelector('#day').value+"-"+document.querySelector('#month').value+"-"+document.querySelector('#year').value; 
@@ -33,9 +34,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
+
     const save = () =>{
     try{
         let employeePayrollData = createEmployeePayroll();
+        createAndUpdateStorage(employeePayrollData);
     }
     catch(e){
         return;      
@@ -70,4 +73,15 @@ const getSelectedValues = (propertyValue) =>{
         if(item.checked) setItems.push(item.value);
     });
     return setItems
+}
+function createAndUpdateStorage(employeePayrollData) {
+    let employeePayrollList = JSON.parse(loacalStorage.getItem("EmployeePayrollList"));
+    if(employeePayrollList != undefined){
+        employeePayrollList.push(employeePayrollData);
+}
+else {
+    employeePayrollList = [EmployeePayrollData];
+}
+alert(employeePayrollList.toString());
+localStorage.setItem("EmployeePayrollList",JSON.stringify(employeePayrollList))
 }
